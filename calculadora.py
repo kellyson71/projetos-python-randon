@@ -36,6 +36,8 @@ def calcular():
         messagebox.showerror("Erro", "Entrada inválida. Por favor, digite um número.")
         return
 
+    resultado = None
+
     try:
         if escolha == '1':
             resultado = adicionar(num1, num2)
@@ -63,8 +65,10 @@ def fechar_calculadora():
 style = ttk.Style()
 style.theme_use("clam")
 
-bg_color = "#E8E8E8"
+bg_color = "#f0f0f0"
 fg_color = "#333333"
+button_color = "#4CAF50"
+button_hover_color = "#45a049"
 
 root = tk.Tk()
 root.title("Calculadora")
@@ -79,12 +83,20 @@ label_num2 = ttk.Label(root, text="Digite o segundo número:", background=bg_col
 entry_num2 = ttk.Entry(root)
 
 label_operacao = ttk.Label(root, text="Selecione a operação:", background=bg_color, foreground=fg_color)
-menu_operacao = ttk.Combobox(root, values=('1', '2', '3', '4', '5', '6'), state="readonly")
+menu_operacao = ttk.Combobox(root, values=('Adicionar', 'Subtrair', 'Multiplicar', 'Dividir', 'Potenciação', 'Raiz Quadrada'), state="readonly")
 
-button_calcular = ttk.Button(root, text="Calcular", command=calcular)
+button_calcular = ttk.Button(root, text="Calcular", command=calcular, style="TButton", cursor="hand2")
 label_resultado = ttk.Label(root, text="Resultado:", background=bg_color, foreground=fg_color)
 
-button_sair = ttk.Button(root, text="Sair", command=fechar_calculadora)
+button_sair = ttk.Button(root, text="Sair", command=fechar_calculadora, style="TButton", cursor="hand2")
+
+# Adicionar a variável choice_var
+choice_var = tk.StringVar()
+choice_var.set('Adicionar')  # Inicialmente, define a escolha como adição
+
+# Definir estilos para os botões
+style.configure("TButton", padding=5, relief="flat", background=button_color, foreground="white", font=('Arial', 10))
+style.map("TButton", background=[("active", button_hover_color)])
 
 label_num1.grid(row=0, column=0, pady=5, padx=10, sticky="w")
 entry_num1.grid(row=0, column=1, pady=5, padx=10)
