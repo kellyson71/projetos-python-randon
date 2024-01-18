@@ -1,6 +1,6 @@
 import math
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 
 def adicionar(x, y):
     return x + y
@@ -60,37 +60,43 @@ def calcular():
 def fechar_calculadora():
     root.destroy()
 
+style = ttk.Style()
+style.theme_use("clam")
+
+bg_color = "#E8E8E8"
+fg_color = "#333333"
+
 root = tk.Tk()
 root.title("Calculadora")
+root.geometry("300x250")
 
-choice_var = tk.StringVar()
-choice_var.set('1')  
-label_num1 = tk.Label(root, text="Digite o primeiro número:")
-entry_num1 = tk.Entry(root)
+root.configure(bg=bg_color)
 
-label_num2 = tk.Label(root, text="Digite o segundo número:")
-entry_num2 = tk.Entry(root)
+label_num1 = ttk.Label(root, text="Digite o primeiro número:", background=bg_color, foreground=fg_color)
+entry_num1 = ttk.Entry(root)
 
-label_operacao = tk.Label(root, text="Selecione a operação:")
-menu_operacao = tk.OptionMenu(root, choice_var, '1', '2', '3', '4', '5', '6')
+label_num2 = ttk.Label(root, text="Digite o segundo número:", background=bg_color, foreground=fg_color)
+entry_num2 = ttk.Entry(root)
 
-button_calcular = tk.Button(root, text="Calcular", command=calcular)
-label_resultado = tk.Label(root, text="Resultado:")
+label_operacao = ttk.Label(root, text="Selecione a operação:", background=bg_color, foreground=fg_color)
+menu_operacao = ttk.Combobox(root, values=('1', '2', '3', '4', '5', '6'), state="readonly")
 
-button_sair = tk.Button(root, text="Sair", command=fechar_calculadora)
+button_calcular = ttk.Button(root, text="Calcular", command=calcular)
+label_resultado = ttk.Label(root, text="Resultado:", background=bg_color, foreground=fg_color)
 
-label_num1.grid(row=0, column=0)
-entry_num1.grid(row=0, column=1)
+button_sair = ttk.Button(root, text="Sair", command=fechar_calculadora)
 
-label_num2.grid(row=1, column=0)
-entry_num2.grid(row=1, column=1)
+label_num1.grid(row=0, column=0, pady=5, padx=10, sticky="w")
+entry_num1.grid(row=0, column=1, pady=5, padx=10)
 
-label_operacao.grid(row=2, column=0)
-menu_operacao.grid(row=2, column=1)
+label_num2.grid(row=1, column=0, pady=5, padx=10, sticky="w")
+entry_num2.grid(row=1, column=1, pady=5, padx=10)
 
-button_calcular.grid(row=3, column=0, columnspan=2)
-label_resultado.grid(row=4, column=0, columnspan=2)
+label_operacao.grid(row=2, column=0, pady=5, padx=10, sticky="w")
+menu_operacao.grid(row=2, column=1, pady=5, padx=10, sticky="ew")
 
-button_sair.grid(row=5, column=0, columnspan=2)
+button_calcular.grid(row=3, column=0, columnspan=2, pady=10)
+label_resultado.grid(row=4, column=0, columnspan=2, pady=5)
+button_sair.grid(row=5, column=0, columnspan=2, pady=10)
 
 root.mainloop()
