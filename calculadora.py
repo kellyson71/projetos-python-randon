@@ -1,114 +1,45 @@
-import math
 import tkinter as tk
-from tkinter import ttk, messagebox
 
-def adicionar(x, y):
-    return x + y
+def press(key):
+    current = entry.get()
+    entry.delete(0, tk.END)
+    entry.insert(tk.END, current + str(key))
 
-def subtrair(x, y):
-    return x - y
+def clear():
+    entry.delete(0, tk.END)
 
-def multiplicar(x, y):
-    return x * y
-
-def dividir(x, y):
-    if y == 0:
-        raise ValueError("Não é possível dividir por zero.")
-    return x / y
-
-def potencia(x, y):
-    return x ** y
-
-def raiz_quadrada(x):
-    if x < 0:
-        raise ValueError("Não é possível calcular a raiz quadrada de um número negativo.")
-    return math.sqrt(x)
-
-def calcular():
-    escolha = choice_var.get()
-
+def calculate():
     try:
-        num1 = float(entry_num1.get())
-
-        if escolha != '6':
-            num2 = float(entry_num2.get())
-    except ValueError:
-        messagebox.showerror("Erro", "Entrada inválida. Por favor, digite um número.")
-        return
-
-    resultado = None
-
-    try:
-        if escolha == '1':
-            resultado = adicionar(num1, num2)
-        elif escolha == '2':
-            resultado = subtrair(num1, num2)
-        elif escolha == '3':
-            resultado = multiplicar(num1, num2)
-        elif escolha == '4':
-            resultado = dividir(num1, num2)
-        elif escolha == '5':
-            resultado = potencia(num1, num2)
-        elif escolha == '6':
-            resultado = raiz_quadrada(num1)
-
-        label_resultado.config(text=f"Resultado: {resultado}")
-
-    except ValueError as e:
-        messagebox.showerror("Erro", f"Erro: {e}")
+        result = eval(entry.get())
+        entry.delete(0, tk.END)
+        entry.insert(tk.END, str(result))
     except Exception as e:
-        messagebox.showerror("Erro", f"Ocorreu um erro inesperado: {e}")
-
-def fechar_calculadora():
-    root.destroy()
-
-style = ttk.Style()
-style.theme_use("clam")
-
-bg_color = "#f0f0f0"
-fg_color = "#333333"
-button_color = "#4CAF50"
-button_hover_color = "#45a049"
+        entry.delete(0, tk.END)
+        entry.insert(tk.END, "Erro")
 
 root = tk.Tk()
 root.title("Calculadora")
-root.geometry("300x250")
 
-root.configure(bg=bg_color)
+entry = tk.Entry(root, width=16, font=('Arial', 24), borderwidth=2, relief="solid", justify=tk.RIGHT)
+entry.grid(row=0, column=0, columnspan=4)
 
-label_num1 = ttk.Label(root, text="Digite o primeiro número:", background=bg_color, foreground=fg_color)
-entry_num1 = ttk.Entry(root)
+buttons = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    '0', '.', '=', '+'
+]
 
-label_num2 = ttk.Label(root, text="Digite o segundo número:", background=bg_color, foreground=fg_color)
-entry_num2 = ttk.Entry(root)
+row_val = 1
+col_val = 0
 
-label_operacao = ttk.Label(root, text="Selecione a operação:", background=bg_color, foreground=fg_color)
-menu_operacao = ttk.Combobox(root, values=('Adicionar', 'Subtrair', 'Multiplicar', 'Dividir', 'Potenciação', 'Raiz Quadrada'), state="readonly")
+for button in buttons:
+    tk.Button(root, text=button, padx=20, pady=20, font=('Arial', 18), command=lambda key=button: press(key) if key != '=' else calculate()).grid(row=row_val, column=col_val)
+    col_val += 1
+    if col_val > 3:
+        col_val = 0
+        row_val += 1
 
-button_calcular = ttk.Button(root, text="Calcular", command=calcular, style="TButton", cursor="hand2")
-label_resultado = ttk.Label(root, text="Resultado:", background=bg_color, foreground=fg_color)
-
-button_sair = ttk.Button(root, text="Sair", command=fechar_calculadora, style="TButton", cursor="hand2")
-
-# Adicionar a variável choice_var
-choice_var = tk.StringVar()
-choice_var.set('Adicionar')  # Inicialmente, define a escolha como adição
-
-# Definir estilos para os botões
-style.configure("TButton", padding=5, relief="flat", background=button_color, foreground="white", font=('Arial', 10))
-style.map("TButton", background=[("active", button_hover_color)])
-
-label_num1.grid(row=0, column=0, pady=5, padx=10, sticky="w")
-entry_num1.grid(row=0, column=1, pady=5, padx=10)
-
-label_num2.grid(row=1, column=0, pady=5, padx=10, sticky="w")
-entry_num2.grid(row=1, column=1, pady=5, padx=10)
-
-label_operacao.grid(row=2, column=0, pady=5, padx=10, sticky="w")
-menu_operacao.grid(row=2, column=1, pady=5, padx=10, sticky="ew")
-
-button_calcular.grid(row=3, column=0, columnspan=2, pady=10)
-label_resultado.grid(row=4, column=0, columnspan=2, pady=5)
-button_sair.grid(row=5, column=0, columnspan=2, pady=10)
+tk.Button(root, text='C', padx=20, pady=20, font=('Arial', 18), command=clear).grid(row=row_val, column=col_val, columnspan=2)
 
 root.mainloop()
