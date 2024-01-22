@@ -12,7 +12,6 @@ def converter_moeda(valor, origem, destino):
     valor_convertido = valor * taxa_cambio
     return valor_convertido
 
-# Exemplo de uso
 valor_a_converter = float(input("Digite o valor a ser convertido: "))
 moeda_origem = input("Digite a moeda de origem (código da moeda): ")
 moeda_destino = input("Digite a moeda de destino (código da moeda): ")

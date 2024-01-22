@@ -4,7 +4,6 @@ def exibir_tabuleiro(tabuleiro):
         print("-" * 9)
 
 def verificar_vitoria(tabuleiro, jogador):
-    # Verificar linhas, colunas e diagonais
     for i in range(3):
         if all(tabuleiro[i][j] == jogador for j in range(3)) or all(tabuleiro[j][i] == jogador for j in range(3)):
             return True
@@ -40,5 +39,4 @@ def jogar_jogo_da_velha():
         exibir_tabuleiro(tabuleiro)
         print("Empate! O jogo terminou sem vencedores.")
 
-# Exemplo de uso
 jogar_jogo_da_velha()
