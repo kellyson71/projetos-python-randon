@@ -47,7 +47,6 @@ class SecureNotesApp:
         return cipher.decrypt(data)
 
     def display_menu(self):
-        print("Secure Notes App")
         print("1. Visualizar Notas")
         print("2. Adicionar Nota")
         print("3. Editar Nota")
