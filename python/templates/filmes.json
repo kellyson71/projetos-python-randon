@@ -1,0 +1,7 @@
+[
+    {"id": 1, "titulo": "O Poderoso Chefão", "genero": "Drama", "ano": 1972, "avaliacao": 9.2},
+    {"id": 2, "titulo": "Um Sonho de Liberdade", "genero": "Drama", "ano": 1994, "avaliacao": 9.3},
+    {"id": 3, "titulo": "O Senhor dos Anéis: O Retorno do Rei", "genero": "Fantasia", "ano": 2003, "avaliacao": 9.0},
+    {"id": 49, "titulo": "O Menino do Pijama Listrado", "genero": "Drama", "ano": 2008, "avaliacao": 7.8},
+    {"id": 50, "titulo": "O Resgate do Soldado Ryan", "genero": "Drama", "ano": 1998, "avaliacao": 8.6}
+]
