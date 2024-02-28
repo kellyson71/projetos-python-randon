@@ -1,0 +1,28 @@
+import fitz  # PyMuPDF
+
+def contar_palavras_pdf(arquivo_pdf):
+    try:
+        # Abrir o arquivo PDF
+        pdf_documento = fitz.open(arquivo_pdf)
+
+        total_palavras = 0
+
+        # Iterar sobre todas as páginas do PDF
+        for pagina_numero in range(pdf_documento.page_count):
+            pagina = pdf_documento[pagina_numero]
+            
+            # Extrair o texto da página
+            texto = pagina.get_text()
+
+            # Contar as palavras na página
+            palavras = texto.split()
+            total_palavras += len(palavras)
+
+        # Fechar o documento PDF
+        pdf_documento.close()
+
+        return total_palavras
+
+    except Exception as e:
+        return f"Erro: {str(e)}"
+
