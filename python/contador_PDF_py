@@ -1,4 +1,4 @@
-import fitz  # PyMuPDF
+import fitz 
 
 def contar_palavras_pdf(arquivo_pdf):
     try:
